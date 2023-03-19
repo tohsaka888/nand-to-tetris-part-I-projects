@@ -5,6 +5,7 @@
 
 /**
  * Computes the sum of two bits.
+ * 思路： 观察真值表，发现sum的值为异或操作，相同为0，不同为1，carry为and操作，全1为1
  */
 
 CHIP HalfAdder {
@@ -14,4 +15,6 @@ CHIP HalfAdder {
 
     PARTS:
     // Put you code here:
+    Xor(a=a, b=b, out=sum);
+    And(a=a, b=b, out=carry);
 }
