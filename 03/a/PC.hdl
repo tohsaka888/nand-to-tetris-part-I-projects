@@ -9,6 +9,7 @@
  * else if (load[t] == 1)  out[t+1] = in[t]
  * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
  * else                    out[t+1] = out[t]
+ * 注意优先级问题，在这个循环中，优先级排列为 reset > load > inc, 优先级最高的最后写
  */
 
 CHIP PC {
@@ -17,4 +18,10 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+    Inc16(in=preOut, out=addOut);
+    Mux16(a=preOut, b=addOut, sel=inc, out=o1);
+    Mux16(a=o1, b=in, sel=load, out=o2);
+    Mux16(a=o2, b=false, sel=reset, out=o3);
+
+    Register(in=o3, load=true, out=preOut, out=out);
 }
