@@ -15,4 +15,7 @@ CHIP Bit {
 
     PARTS:
     // Put your code here:
+    Mux(a=preOut, b=in, sel=load, out=o1);
+    // 注意DFF 存储in 受t控制取出上一轮的in
+    DFF(in=o1, out=preOut, out=out);
 }
